@@ -7,12 +7,17 @@ export default class KanbanColumn extends Component {
     render () {
 
         const {
-            column = {}
+            column = {},
+            addCard
         } = this.props;
 
         return (
             <div className="KanbanColumn">
-                <div className="KanbanColumnHead">
+                <div className="KanbanColumnHead"
+                    style={{
+                        backgroundColor: column.color
+                    }}
+                >
                     {column.title}
                 </div>
                 <div>
@@ -24,6 +29,12 @@ export default class KanbanColumn extends Component {
                             />
                         )
                     }
+                    <div
+                        onClick={() => addCard(column.id)}
+                        className="kanbanCard add-button"
+                    >
+                        +
+                    </div>
                 </div>
             </div>
         )

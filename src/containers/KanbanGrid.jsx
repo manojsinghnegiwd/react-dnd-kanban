@@ -61,6 +61,34 @@ export default class KanbanGrid extends Component {
         ]
     }
 
+    addCard = ( columnId ) => {
+
+        const columns = this.state.columns.slice();
+
+        const columnIndex = columns.findIndex(column => column.id === columnId);
+
+        if(columnIndex > -1) {
+
+            let selectedColumn = columns[columnIndex];
+
+            selectedColumn = {
+                ...selectedColumn,
+                cards: selectedColumn.cards.concat({
+                    title: 'New Card',
+                    id: new Date().getTime()
+                })
+            }
+
+            columns[columnIndex] = selectedColumn;
+
+            this.setState({
+                columns
+            })
+
+        }
+
+    }
+
     render () {
 
         const {
@@ -72,6 +100,7 @@ export default class KanbanGrid extends Component {
                 {
                     columns.map(
                         (column, index) => <KanbanColumn
+                            addCard={this.addCard}
                             column={column}
                         />
                     )
